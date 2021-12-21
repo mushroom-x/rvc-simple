@@ -3,10 +3,6 @@
 
 
 
-![](./image/open3d-pcd.png)
-
-
-
 ## 快速上手
 
 ```python
@@ -26,6 +22,12 @@ o3d.visualization.draw_geometries([pcd])
 # 释放设备
 rvc.release()
 ```
+
+## 效果展示
+
+<img src="./image/open3d-pcd.png" style="zoom:50%;" />
+
+
 
 ## 作者
 
