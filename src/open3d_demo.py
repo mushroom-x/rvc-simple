@@ -1,3 +1,11 @@
+'''
+如本工业深度摄像头Open3D示例
+- 读取图像与点云映射， 并转换为open3d的pcd格式
+@作者: 阿凯爱玩机器人
+@微信: xingshunkai
+@邮箱: xingshunkai@qq.com
+@B站: https://space.bilibili.com/40344504
+'''
 import numpy as np
 import cv2
 import open3d as o3d
@@ -13,7 +21,7 @@ pcd = rvc.get_pcd(img, pmap)
 # 保存2D图像
 cv2.imwrite("./data/test.png", img)
 # 保存点云映射
-np.savetxt("./data/test.xyz".format(), pmap.reshape(-1, 3))
+np.savetxt("./data/test.xyz", pmap.reshape(-1, 3), fmt=":.3f", delimiter=",")
 # 保存PCD点云
 o3d.io.write_point_cloud("./data/test.pcd", pcd)
 
