@@ -87,19 +87,25 @@ class RVCSimple:
         img = np.array(self.cam.GetImage(RVC.CameraID_Left), copy=False)
         # 获取点云映射图
         pmap = np.array(self.cam.GetPointMap(), copy=False)
-        # 获取PCD格式点云
-        pcd = self.get_pcd(img, pmap)
-        return img, pmap, pcd
+        return img, pmap
     
-    def get_pcd(self, img, pmap):
+    def get_pcd(self, img, pmap, img_mask=None):
         '''将彩图与点云映射转换为PCD格式'''
+        print(f"img shape:  {img.shape}")
+        print(f"pmap shape: {pmap.shape}")
+        if img_mask is None:
+            h, w, _ = img.shape
+            valid_pixel_index = np.bool8(np.ones((h, w)).reshape(-1))
+        else:
+            valid_pixel_index = (img_mask != 0).reshape(-1)
         # 将图像转换RGB色彩空间， 并将数值缩放到[0, 1]之间
         # 并转换为列向量
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB).reshape(-1, 3) /255.0
         # 将点云映射转换为列向量
         pmap = pmap.reshape(-1, 3)
         # 有效点索引
-        valid_pt_index = ~np.isnan(pmap[:, -1])
+        valid_pt_index = np.bitwise_and(~np.isnan(pmap[:, -1]), valid_pixel_index)
+        # 获取有效点云与像素
         pmap_valid = pmap[valid_pt_index]
         img_valid = img[valid_pt_index] 
         # 创建pcd对象
