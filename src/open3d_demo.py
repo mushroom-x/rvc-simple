@@ -11,8 +11,11 @@ import cv2
 import open3d as o3d
 from rvc_simple import RVCSimple
 
+# 相机的配置文件 YAML格式
+# 根据不同的工件特性，设置不同的参数
+config_path = "config/duck.yaml"
 # 创建设备
-rvc = RVCSimple()
+rvc = RVCSimple(config_path=config_path)
 # 获取图像与点云映射
 img, pmap = rvc.capture()
 # 获取PCD点云

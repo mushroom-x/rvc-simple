@@ -24,8 +24,8 @@ pcd = rvc.get_pcd(img, pmap)
 
 # 保存2D图像
 cv2.imwrite("./data/test.png", img)
-# 保存点云映射
-np.savetxt("./data/test.xyz", pmap.reshape(-1, 3), fmt=":.3f", delimiter=",")
+# 保存点云映射 单位m
+np.savetxt("./data/test.xyz", pmap.reshape(-1, 3), delimiter=",", fmt="%.4f")
 # 保存PCD点云
 o3d.io.write_point_cloud("./data/test.pcd", pcd)
 
