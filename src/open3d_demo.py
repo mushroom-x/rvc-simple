@@ -13,7 +13,9 @@ from rvc_simple import RVCSimple
 
 # 相机的配置文件 YAML格式
 # 根据不同的工件特性，设置不同的参数
-config_path = "config/duck.yaml"
+# 默认配置为RVC-X Mini彩色相机的配置文件
+# 需要根据RVCManager调整相机参数，并保存到YAML配置文件中
+config_path = "config/default.yaml"
 # 创建设备
 rvc = RVCSimple(config_path=config_path)
 # 获取图像与点云映射

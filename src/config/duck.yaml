@@ -1,5 +1,6 @@
 # 拍摄小鸭子的相机参数
-
+# 相机类型：彩色相机
+type: "rgb"
 # 曝光时间 (3~100) ms
 exposure_time_2d: 100
 exposure_time_3d: 100

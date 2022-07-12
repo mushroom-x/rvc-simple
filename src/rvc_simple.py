@@ -87,7 +87,8 @@ class RVCSimple:
 		color_dict = {
 			"red": RVC.ProjectorColor_Red,
 			"green": RVC.ProjectorColor_Green, 
-			"blue": RVC.ProjectorColor_Blue}
+			"blue": RVC.ProjectorColor_Blue,
+			"white": RVC.ProjectorColor_White}
 		cap_opt.projector_color = color_dict[self.config["projector_color"]]
 		return cap_opt
 	
@@ -96,6 +97,10 @@ class RVCSimple:
 		self.cam.Capture(self.opt)
 		# 获取左侧相机的BGR彩图
 		img = np.array(self.cam.GetImage(RVC.CameraID_Left), copy=False)
+		# 如果是灰度相机，为了保证接口统一
+		# 将灰度图转换为BGR图
+		if self.config["type"] == "gray":
+			img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 		# 获取点云映射图
 		pmap = np.array(self.cam.GetPointMap(), copy=False)
 		return img, pmap
