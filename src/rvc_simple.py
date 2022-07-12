@@ -23,9 +23,12 @@ class RVCSimple:
 		with open(config_path, 'r', encoding='utf-8') as f:
 			self.config = yaml.load(f.read(), Loader=yaml.SafeLoader)
 		# 创建相机
-		self.cam = self.get_cam()
-		# 配置相机参数
-		self.opt = self.get_opt()
+		ret, self.cam = self.get_cam()
+		if ret:
+			# 配置相机参数
+			self.opt = self.get_opt()
+		else:
+			exit(-1)
 	
 	def get_cam(self):
 		'''获取设备'''
@@ -40,7 +43,7 @@ class RVCSimple:
 		if len(devices) == 0:
 			print("Can not find any RVC X GigE Camera!")
 			RVC.SystemShutdown()
-			return False
+			return False, None
 		print("devices size =%d" % len(devices))
 		# 创建设备 使用双目
 		cam = RVC.X2.Create(devices[0])
@@ -51,7 +54,7 @@ class RVCSimple:
 			print("RVC X Camera is not valid!")
 			RVC.X2.Destroy(cam)
 			RVC.SystemShutdown()
-			return False
+			return False, None
 		# 打开设备
 		ret1 = cam.Open()
 		# 测试设备是否打开
@@ -61,8 +64,8 @@ class RVCSimple:
 			print("RVC X Camera is not opened!")
 			RVC.X2.Destroy(cam)
 			RVC.SystemShutdown()
-			return False
-		return cam
+			return False, None
+		return True, cam
 	
 	def get_opt(self):
 		# 设置相机参数
@@ -88,7 +91,8 @@ class RVCSimple:
 			"red": RVC.ProjectorColor_Red,
 			"green": RVC.ProjectorColor_Green, 
 			"blue": RVC.ProjectorColor_Blue,
-			"white": RVC.ProjectorColor_White}
+			# "white": RVC.ProjectorColor_White
+		}
 		cap_opt.projector_color = color_dict[self.config["projector_color"]]
 		return cap_opt
 	

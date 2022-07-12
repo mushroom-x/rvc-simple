@@ -2,9 +2,98 @@
 
 
 
-![](https://gd1.alicdn.com/imgextra/i1/2238350155/O1CN01cNqI1o1D127dLZzGB_!!2238350155.png)
+<img src="https://gd1.alicdn.com/imgextra/i1/2238350155/O1CN01cNqI1o1D127dLZzGB_!!2238350155.png" style="zoom: 50%;" />
+
+## 准备工作
+
+使用前确保已经安装了Open3D与如本RVC 3D相机Python SDK。 
+
+### Open3D
+
+Windows下安装Open3D
+
+```bash
+pip install open3d
+```
+
+Ubuntu下安装Open3D
+
+```bash
+sudo pip3 install open3d 
+```
+
+
+
+### 如本3D相机Python SDK
+
+如本3D相机的Python SDK安装包是内置到上位机软件里面的。
+
+在[如本-下载中心](http://www.rvbust.com/download.html) 下载最新版本的SDK， 根据自己的平台进行选择。 如果PC配有显卡，也可以选择`cuda`版本, 但是前提是需要安装显卡驱动以及CUDA。
+
+* [RVC SDK 1.5.1 (Linux)](http://www.rvbust.com/Downloads/RVC_v1.5.1-deb-9f40ac1_20220429_amd64_release.deb)
+* [RVC SDK 1.5.1 (Windows)](http://www.rvbust.com/Downloads/RVCSetup_v1.5.1_9f40ac1_20220429_x64_release.exe)
+
+安装后， 在启动栏可以搜索`RVCManager`。
+
+![](./image/rvc-manager.png)
+
+启动上位机软件, 点击`帮助 -> 用户手册` 
+
+![](./image/查看用户手册.png)
+
+可以查看用户手册， 里面包含相机的使用以及Python SDK安装说明。提供了Windows跟Linux两个操作系统的安装说明。
+
+![](./image/使用手册.png)
+
+按照手册说明安装SDK即可。
+
+
 
 ## 快速上手
+
+**文件结构**
+
+* `src/rvc_simple.py` 
+
+  定义了RVC 3D相机Python-Open3D的SDK， 是在如本提供的Python SDK基础上做了二次封装。 
+
+* `src/test_pcd_capture.py.py`
+
+  是`rvc_simple.py`的使用实例，功能如下:
+
+  * 拍摄RGB图与XYZ格式的点云， 并保存
+  * 将RGB图与XYZ点云转换为PCD格式的点云
+  * 彩色点云可视化预览
+  
+* `src/pcd_visualizer.py` 
+
+  点云动态刷新可视化组件
+
+* `src/test_pcd_visualizer.py`
+
+  测试RVC 3D相机点云获取与动态刷新
+
+
+
+测试点云获取
+
+```bash
+python3 test_pcd_capture.py.py
+```
+
+测试点云获取与动态刷新
+
+```bash
+python3 test_pcd_visualizer.py
+```
+
+
+
+
+
+可以先大致看下示例代码， 在后面的课程章节中会对Open3D的API做详细的讲解。
+
+`test_pcd_capture.py`
 
 ```python
 '''
@@ -75,7 +164,7 @@ edge_noise_reduction_threshold: 0
 # 投影颜色
 # 建议选择白色光投影
 # 可选颜色: ["red", "green", "blue", "white"]
-projector_color: "white"
+projector_color: "blue"
 # 光强对比度阈值
 light_contrast_threshold: 2
 ```
