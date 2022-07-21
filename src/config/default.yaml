@@ -15,6 +15,6 @@ edge_noise_reduction_threshold: 0
 # 投影颜色
 # 建议选择白色光投影
 # 可选颜色: ["red", "green", "blue", "white"]
-projector_color: "blue"
+projector_color: "white"
 # 光强对比度阈值
 light_contrast_threshold: 2

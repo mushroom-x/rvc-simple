@@ -91,7 +91,7 @@ class RVCSimple:
 			"red": RVC.ProjectorColor_Red,
 			"green": RVC.ProjectorColor_Green, 
 			"blue": RVC.ProjectorColor_Blue,
-			# "white": RVC.ProjectorColor_White
+			"white": RVC.ProjectorColor_White
 		}
 		cap_opt.projector_color = color_dict[self.config["projector_color"]]
 		return cap_opt
